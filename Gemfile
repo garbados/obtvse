@@ -47,3 +47,5 @@ group :assets do
   gem 'coffee-rails', '~> 3'
   gem 'uglifier', '~> 1'
 end
+
+gem 'twitter'
