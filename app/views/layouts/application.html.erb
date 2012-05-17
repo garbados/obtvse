@@ -28,8 +28,8 @@
     </ul>
     <% if @posts %>
     <ul>
-      <% @posts.each do |post| %>
-        <li><%= link_to post.title, post_path(post) %></li>
+      <% @posts[0...5].each do |post| %>
+        <li><%= link_to post.title, post %></li>
       <% end %>
     </ul>
     <% end %>

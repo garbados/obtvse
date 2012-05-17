@@ -63,8 +63,6 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(params[:post])
-    tweet = "#{ @post.title }: #{ url_for(@post) }"
-    Twitter.update(tweet)
 
     respond_to do |format|
       if @post.save
@@ -79,9 +77,14 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find_by_slug(params[:slug])
+    is_draft = !!@post.draft
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
+        if is_draft and not @post.draft
+          tweet = "#{ @post.title }: #{ url_for(@post) }"
+          Twitter.update(tweet)
+        end
         format.html { redirect_to "/edit/#{@post.id}", :notice => "Post updated successfully" }
         format.xml { head :ok }
       else
