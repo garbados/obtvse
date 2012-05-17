@@ -63,6 +63,8 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(params[:post])
+    tweet = "#{ @post.title }: #{ url_for(@post) }"
+    Twitter.update(tweet)
 
     respond_to do |format|
       if @post.save
